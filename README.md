@@ -7,8 +7,8 @@ this project is a small gameboy for games like Snake, Tetris, Pong etc.
 
 ### This is the Gameboy
 
-<img width=300 src=Gallery/Img1.jpeg>
-<img width=300 src=Gallery/Img2.jpeg>
+<img width=280 src=Gallery/Img1.jpeg>
+<img width=280 src=Gallery/Img2.jpeg>
 
 You find some notes about the circuits in `Circuit.md`, but in general, the components are:
 
