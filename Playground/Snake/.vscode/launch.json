@@ -1,0 +1,20 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "cppdbg",
+      "request": "launch",
+      "args": [
+        ""
+      ],
+      "stopAtEntry": true,
+      "cwd": "/Users/carl/Main/Projects/101 Unimportant/Tetris in C/simple-tetris-game-in-c/Playground/TetrisOnAttiny/Snake",
+      "environment": [],
+      "program": "/Users/carl/Main/Projects/101 Unimportant/Tetris in C/simple-tetris-game-in-c/Playground/TetrisOnAttiny/Snake/build/Debug/outDebug",
+      "internalConsoleOptions": "openOnSessionStart",
+      "MIMode": "gdb",
+      "externalConsole": true
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+TetrisBoy
+
+
+TBoyPins	-	Arduino Pins
+1: VCC	-	5V
+2: GND	-	GND
+3: RESET	-	10 (used as RESET)
+4: MOSI	-	11 (MOSI)
+5: MISO	-	12 (MISO)
+6: SCLK	-	13 (SCLK)
+		…don’t forget the 10uF Elko!
+
+
+Knöpfe: 
+- Links: PB2
+- Rechts: PA7
+
+- Oben: PA2
+- Unten: PA1
+
+
+Display:
+- SCL: SCK bzw. PA4
+- SDA: MOSI bzw. PA6

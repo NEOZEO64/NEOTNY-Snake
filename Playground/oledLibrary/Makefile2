@@ -1,0 +1,60 @@
+MCU=attiny84
+AVRDUDEMCU=t84
+CC=/usr/bin/avr-gcc
+CFLAGS=-g -Os -Wall -mcall-prologues -mmcu=$(MCU)
+OBJ2HEX=/usr/bin/avr-objcopy
+AVRDUDE=/usr/local/bin/avrdude
+TARGET=oledTest
+
+
+# lcd.c
+# font.c
+# i2c.c
+
+
+all: main.out
+	echo 22 > /sys/class/gpio/export
+	echo out > /sys/class/gpio/gpio22/direction
+	echo 0 > /sys/class/gpio/gpio22/value
+
+	$(OBJ2HEX) -R .eeprom -O ihex $(RESULT) $(RESULT).hex
+	$(AVRDUDE) -p $(AVRDUDEMCU) -P /dev/spidev0.0 -c linuxspi -b 10000 -U flash:w:main.hex
+	rm -f main.out
+
+
+	echo 1 > /sys/class/gpio/gpio22/value
+	echo 22 > /sys/class/gpio/unexport
+
+
+main.out: oledTest.o i2c.o lcd.o font.o
+	$(CC) oledTest.o i2c.o lcd.o font.o -lm
+
+oledTest.o: oledTest.c
+	$(CC) $(CFLAGS) oledTest.c -o oledTest.o
+
+lcd.o: lcd.c
+	$(CC) $(CFLAGS) lcd.c -o lcd.o
+
+font.o: font.c
+	$(CC) $(CFLAGS) font.c -o font.o
+
+
+i2c.o: i2c.c
+	$(CC) $(CFLAGS) i2c.c -o i2c.o
+
+
+noreset : all
+	$(AVRDUDE) -p $(AVRDUDEMCU) -P /dev/spidev0.0 -c linuxspi -b 10000 -U flash:w:$(RESULT).hex
+
+
+fuse :
+	echo 22 > /sys/class/gpio/export
+	echo out > /sys/class/gpio/gpio22/direction
+	echo 0 > /sys/class/gpio/gpio22/value
+	$(AVRDUDE) -p $(AVRDUDEMCU) -P /dev/spidev0.0 -c linuxspi -b 10000 -U lfuse:w:0x62:m -U hfuse:w:0xdf:m -U efuse:w:0xff:m
+	echo 1 > /sys/class/gpio/gpio22/value
+	echo 22 > /sys/class/gpio/unexport
+
+
+clean :
+	rm -f *.hex *.obj *.o *.out
